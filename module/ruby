@@ -1,0 +1,36 @@
+#!/usr/bin/ruby
+module M1
+ def my_method
+     puts "M1#my_method"
+ end
+end
+
+module M2
+  def my_method
+     puts "M2#my_method"
+  end
+  
+  module M2Inner
+    NAME="M2Inner..."
+    def my_method_other
+      puts "M2::M2Inner#my_method"
+    end
+  end
+end
+class C
+  include M1
+  include M2
+end
+
+class D<C;end;
+
+puts D.ancestors.to_s
+d=D.new
+d.my_method
+isM1=d.is_a?(M1)
+isM2=d.is_a?(M2)
+puts "d is M1 "+isM1.to_s
+puts "d is M2 "+isM2.to_s
+
+puts D::M2Inner::NAME
+D::M2Inner::my_method_other
